@@ -9,7 +9,7 @@ Sentiment Analyzer is designed to:
 - Evaluate the model
 
 ## Folder Structure
-
+```
 SentimentAnalyzer/
 |
 |__ artifacts/
@@ -43,7 +43,7 @@ SentimentAnalyzer/
 |__ README.md
 |
 |__ requirements.txt
-
+```
 ## Datasets
 - Amazon Reviews (Kaggle)
 

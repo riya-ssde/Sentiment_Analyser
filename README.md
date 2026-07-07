@@ -1,16 +1,16 @@
 # Sentiment Analyser
-It's a python-based sentiment analysis application that processes Amazon review using NLP and machine learning techniques to classify customer sentiment into three categories - positive, negative, and neutral - and generate insights.
+It's a python-based sentiment analysis application that processes Amazon reviews using NLP and machine learning techniques to classify customer sentiment into three categories - positive, negative, and neutral - and generate insights.
 
 ## Project Overview
-Sentiment Analyzer is designed to:
+Sentiment Analyser is designed to:
 - Ingest and preprocess Amazon reviews
 - Train one or more models (e.g., Logistic Regression, Transformer Model, etc)
-- Predict the right sentiment of a review
+- Predict the right sentiment for reviews
 - Evaluate the model
 
 ## Folder Structure
 ```
-SentimentAnalyzer/
+Sentiment_Analyser/
 |
 |__ artifacts/
 |   |__ metrics/

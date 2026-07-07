@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Sentiment_Analyser"
+version = "1.0.0"
+description = "It's an NLP-based sentiment analysis system to classify Amazon reviews as positive, negative, or neutral"
+requires-python = ">=3.11"
+
+dependencies = [
+    "beautifulsoup",
+    "click",
+    "emoji",
+    "joblib",
+    "narwhals",
+    "nltk",
+    "numpy",
+    "pandas",
+    "pip",
+    "python-dateutil",
+    "regex",
+    "scikit-learn",
+    "scipy",
+    "six",
+    "soupsieve",
+    "threadpoolctl",
+    "tqdm",
+    "typing_extensions"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

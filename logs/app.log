@@ -1,0 +1,67 @@
+2026-07-06 21:59:48,921 | INFO | main.py:22 | Welcome to the Sentiment Analyser.
+2026-07-06 21:59:48,922 | INFO | main.py:53 | Created 'TextPreprocessor' object.
+2026-07-06 21:59:48,923 | INFO | main.py:55 | Created 'TraditionalPreprocessor' object.
+2026-07-06 21:59:48,923 | INFO | main.py:57 | Created 'FileHandler' object.
+2026-07-06 21:59:48,923 | INFO | main.py:59 | Created 'DataPreprocessor' object.
+2026-07-06 21:59:56,437 | INFO | prepare_dataset.py:67 | Started processing the raw data...
+2026-07-06 21:59:56,576 | INFO | file_csv.py:11 | File (data/raw/Amazon_Reviews.csv) loaded into a data frame.
+2026-07-06 21:59:56,576 | INFO | file_csv.py:12 | The data frame has 21214 rows.
+2026-07-06 21:59:56,576 | INFO | prepare_dataset.py:15 | Loaded raw data to a data frame.
+2026-07-06 21:59:56,582 | INFO | prepare_dataset.py:19 | Dropped Columns: 'Profile Link', 'Country', and 'Data of Experience'
+2026-07-06 21:59:56,599 | INFO | prepare_dataset.py:24 | Updated 'Review Date' column format.
+2026-07-06 21:59:56,603 | INFO | prepare_dataset.py:28 | Dropped rows with no review text.
+2026-07-06 21:59:56,606 | INFO | prepare_dataset.py:32 | Dropped rows with missing rating data.
+2026-07-06 21:59:56,612 | INFO | prepare_dataset.py:40 | Extracted rating and updated 'Rating' column.
+2026-07-06 22:00:18,639 | INFO | prepare_dataset.py:59 | Cleaned reviews using the traditioanl preprocessor.
+2026-07-06 22:00:18,643 | INFO | prepare_dataset.py:52 | Added 'Sentiment' column.
+2026-07-06 22:00:18,712 | INFO | file_csv.py:23 | Saved a data frame to a file. Path: data/processed/Clean_Amazon_Reviews.csv.
+2026-07-06 22:00:18,712 | INFO | prepare_dataset.py:63 | Saved the processed data to a csv file.
+2026-07-06 22:00:18,712 | INFO | prepare_dataset.py:85 | The raw data has been processed.
+2026-07-06 22:00:18,713 | INFO | main.py:70 | Created 'DataSplitter' object.
+2026-07-06 22:00:18,713 | INFO | main.py:72 | Created 'TfidfVectorizer' object.
+2026-07-06 22:00:18,713 | INFO | main.py:74 | Created 'LogisticRegression' object.
+2026-07-06 22:00:18,713 | INFO | main.py:77 | Created 'Trainer' object.
+2026-07-06 22:00:18,713 | INFO | train.py:39 | Started training...
+2026-07-06 22:00:18,713 | INFO | splitter.py:15 | Started splitting the data set...
+2026-07-06 22:00:18,742 | INFO | splitter.py:35 | Size of training data: 16844
+2026-07-06 22:00:18,742 | INFO | splitter.py:36 | Size of testing data: 4211
+2026-07-06 22:00:18,742 | INFO | train.py:13 | Started vectorizing the training data...
+2026-07-06 22:00:19,134 | INFO | train.py:22 | Fitted the model.
+2026-07-06 22:00:19,160 | INFO | train.py:28 | Saved the vectorizer. Path: artifacts/vectorizers/tfidf.pkl.
+2026-07-06 22:00:19,161 | INFO | train.py:35 | Saved the model. Path: artifacts/models/logistic_regression.pkl.
+2026-07-06 22:00:19,161 | INFO | train.py:51 | The training is complete.
+2026-07-06 22:00:19,161 | INFO | train.py:17 | Started vectorizing the test data...
+2026-07-06 22:00:24,204 | INFO | main.py:87 | Created 'Predictor' object.
+2026-07-06 22:00:28,271 | INFO | predict.py:22 | Started prediction for a review...
+2026-07-06 22:00:36,354 | INFO | predict.py:28 | The prediction is complete.
+2026-07-06 22:00:41,704 | INFO | predict.py:14 | Started prediction for some vectorized data...
+2026-07-06 22:00:41,708 | INFO | predict.py:16 | The prediction is complete.
+2026-07-06 22:00:46,904 | INFO | main.py:96 | Created 'Evaluator' object.
+2026-07-06 22:00:49,585 | INFO | evaluate.py:21 | Accuracy: 0.8974
+2026-07-06 22:00:49,605 | INFO | evaluate.py:26 | Precision: 0.8780
+2026-07-06 22:00:49,617 | INFO | evaluate.py:31 | Recall Score: 0.8974
+2026-07-06 22:00:49,627 | INFO | evaluate.py:36 | F1 Score: 0.8793
+2026-07-06 22:00:49,635 | INFO | evaluate.py:41 | Confusion Matrix:
+[[2765    1  104]
+ [ 109    3   65]
+ [ 150    3 1011]]
+2026-07-06 22:00:49,635 | INFO | evaluate.py:64 | Created a dictionary of important metrices.
+2026-07-06 22:00:50,706 | INFO | evaluate.py:41 | Confusion Matrix:
+[[2765    1  104]
+ [ 109    3   65]
+ [ 150    3 1011]]
+2026-07-06 22:00:52,248 | INFO | evaluate.py:46 | Classification Report:
+              precision    recall  f1-score   support
+
+    Negative       0.91      0.96      0.94      2870
+     Neutral       0.43      0.02      0.03       177
+    Positive       0.86      0.87      0.86      1164
+
+    accuracy                           0.90      4211
+   macro avg       0.73      0.62      0.61      4211
+weighted avg       0.88      0.90      0.88      4211
+
+2026-07-06 22:00:53,188 | INFO | evaluate.py:75 | Saved metrices to a file. Path: artifacts/metrics/evaluation.json.
+2026-07-06 22:00:54,141 | INFO | evaluate.py:75 | Saved metrices to a file. Path: artifacts/metrics/confusion_matrix.json.
+2026-07-06 22:00:55,273 | INFO | evaluate.py:75 | Saved metrices to a file. Path: artifacts/metrics/classification_report.json.
+2026-07-06 22:00:56,372 | INFO | main.py:106 | We have reached the end of the project!

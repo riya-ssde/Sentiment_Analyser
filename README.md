@@ -1,0 +1,60 @@
+# Sentiment Analyser
+It's a python-based sentiment analysis application that processes Amazon review using NLP and machine learning techniques to classify customer sentiment into three categories - positive, negative, and neutral - and generate insights.
+
+## Project Overview
+Sentiment Analyzer is designed to:
+- Ingest and preprocess Amazon reviews
+- Train one or more models (e.g., Logistic Regression, Transformer Model, etc)
+- Predict the right sentiment of a review
+- Evaluate the model
+
+## Folder Structure
+
+SentimentAnalyzer/
+|
+|__ artifacts/
+|   |__ metrics/
+|   |__ models/
+|   |__ vectorizers/
+|   
+|__ config/
+|
+|__ data/
+|   |__ processed/
+|   |__ raw/
+|
+|__ deployment/
+|
+|__ logs/
+|
+|__ src/
+|   |__ evaluation/
+|   |__ prediction/
+|   |__ preprocessing/
+|   |__ training/
+|   |__ utils/
+|   |__ __init__.py
+|   |__ main.py
+|
+|__ tests/
+|
+|__ pyproject.toml
+|
+|__ README.md
+|
+|__ requirements.txt
+
+## Datasets
+- Amazon Reviews (Kaggle)
+
+## Features
+### Baseline
+- TF-IDF Transformer
+- Logistic Regression Classifier
+### Advanced Model
+- BERT/ RoBERT
+
+## Installation
+```
+pip install -r requirements.txt
+```

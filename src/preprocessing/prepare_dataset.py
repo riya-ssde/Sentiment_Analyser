@@ -1,5 +1,6 @@
 import pandas as pd
 from pathlib import Path
+from utils.sentiment import LabelSentiment 
 from utils.logger import logger
 
 class DataPreprocessor:
@@ -11,7 +12,7 @@ class DataPreprocessor:
 
     def loadFileIntoDF(self, data_directory, data_filename):
         self.df = self.file_handler.load_csv(data_directory, data_filename)
-        logger.info("Loaded raw data to a data frame.")
+        logger.info("Loaded CSV file data to a data frame.")
 
     def dropUnnecessaryColumns(self):
         self.df = self.df.drop(["Profile Link", "Country", "Date of Experience"], axis=1)
@@ -38,16 +39,8 @@ class DataPreprocessor:
         )
         logger.info("Extracted rating and updated 'Rating' column.")
 
-    def labelSentiment(self, rating):
-        if (rating <= 2):
-            return "Negative"
-        elif (rating == 3):
-            return "Neutral"
-        else:
-            return "Positive"
-
     def addSentimentColumn(self):
-        self.df["Sentiment"] = self.df["Rating"].apply(self.labelSentiment)
+        self.df["Sentiment"] = self.df["Rating"].apply(LabelSentiment)
         logger.info("Added 'Sentiment' column.")
 
     def cleanReviewText(self):

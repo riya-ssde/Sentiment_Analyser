@@ -59,7 +59,7 @@ class TraditionalReviewProcessor():
         model_log_reg = LogisticRegression(max_iter = log_reg_max_iter)
         logger.info("Created 'LogisticRegression' object.")
 
-        self.data_trainer = Trainer(tfidf_vectorizer, model_log_reg, vectorizers_dir, models_dir, vectorizer_filename, model_filename,)
+        self.data_trainer = Trainer(tfidf_vectorizer, model_log_reg, vectorizers_dir, models_dir, vectorizer_filename, model_filename)
         logger.info("Created 'Trainer' object.")
 
     def trainModel(self):

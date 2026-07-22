@@ -29,7 +29,7 @@ def main():
 
         # Transformer
 
-        transformer_processor = TransformerReviewProcessor(transformers_pretrained_model)
+        transformer_processor = TransformerReviewProcessor(raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename, transformers_pretrained_model)
 
         review = "neither liked it nor hated it"
         sentiment = transformer_processor.calculateSentiment(review)
@@ -37,7 +37,13 @@ def main():
         logger.info(f"Review: {review}")
         logger.info(f"Predicted Sentiment: {sentiment}")
 
-        transformer_processor.predictSentimentForAmazonReviews(raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename, X_col_name)
+        df_rows_range = {
+            "first_row": 0,
+            "last_row": 10
+        }
+
+        predicted_sentiments = transformer_processor.predictSentimentForAmazonReviews(df_rows_range)
+        transformer_processor.evaluatePredictionsForAmazonReviews(predicted_sentiments, df_rows_range, metrics_dir, imp_metrics_filename, c_matrix_filename, c_report_filename)
 
         logger.info("We have reached the end of the project!")
 

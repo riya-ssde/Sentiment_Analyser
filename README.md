@@ -20,7 +20,7 @@ Sentiment_Analyser/
 |__ config/
 |
 |__ data/
-|   |__ processed/
+|   |__ clean/
 |   |__ raw/
 |
 |__ deployment/
@@ -29,14 +29,16 @@ Sentiment_Analyser/
 |
 |__ src/
 |   |__ evaluation/
-|   |__ prediction/
 |   |__ preprocessing/
-|   |__ training/
+|   |__ traditional/
+|   |__ transformer/
 |   |__ utils/
 |   |__ __init__.py
 |   |__ main.py
 |
 |__ tests/
+|
+|__ .gitignore
 |
 |__ pyproject.toml
 |

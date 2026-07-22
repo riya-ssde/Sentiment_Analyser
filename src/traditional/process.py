@@ -6,7 +6,7 @@ from utils.file_csv import FileHandler
 from preprocessing.clean_review import TextPreprocessor
 from preprocessing.traditional import TraditionalReviewPreprocessor
 from preprocessing.prepare_dataset import DataPreprocessor
-from traditional.splitter import DataSplitter
+from traditional.split import DataSplitter
 from traditional.train import Trainer
 from traditional.predict import Predictor
 from evaluation.evaluate import Evaluator
@@ -36,7 +36,7 @@ class TraditionalReviewProcessor():
         dataPreprocessor = DataPreprocessor(self.review_preprocessor, file_handler)
         logger.info("Created 'DataPreprocessor' object.")
         
-        self.processed_df = dataPreprocessor.processDataFrame(raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename)
+        self.processed_df = dataPreprocessor.processDataFrame(raw_data_dir, raw_data_filename, clean_data_dir, clean_data_filename)
 
     def getSplitData(self):
 

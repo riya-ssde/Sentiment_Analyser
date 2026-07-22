@@ -52,18 +52,18 @@ class DataPreprocessor:
 
     def saveDFToFile(self, directory, filename):
         self.file_handler.save_df_to_csv(self.df, directory, filename)
-        logger.info("Saved the processed data to a csv file.")
+        logger.info("Saved the cleaned data to a csv file.")
 
-    def processDataFrame(self, raw_data_directory, raw_data_filename, processed_data_dir, processed_data_filename):
+    def processDataFrame(self, raw_data_directory, raw_data_filename, clean_data_dir, clean_data_filename):
 
-        file_path = Path(f"{processed_data_dir}/{processed_data_filename}.csv")
+        file_path = Path(f"{clean_data_dir}/{clean_data_filename}.csv")
 
         if file_path.exists():
-            logger.info("Processed file already exists.")
-            self.loadFileIntoDF(processed_data_dir, processed_data_filename)
+            logger.info("Clean data file already exists.")
+            self.loadFileIntoDF(clean_data_dir, clean_data_filename)
         else:
         
-            logger.info("Started processing the raw data...")
+            logger.info("Started cleaning the raw data...")
 
             self.loadFileIntoDF(raw_data_directory, raw_data_filename)
             self.dropUnnecessaryColumns()
@@ -77,8 +77,8 @@ class DataPreprocessor:
             if (self.df["Review Text"].isnull().sum() > 0):
                 self.dropRowsMissingReviewText()
 
-            self.saveDFToFile(processed_data_dir, processed_data_filename)
+            self.saveDFToFile(clean_data_dir, clean_data_filename)
 
-            logger.info("The raw data has been processed.")
+            logger.info("The raw data has been cleaned.")
 
         return self.df

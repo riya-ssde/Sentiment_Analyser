@@ -1,18 +1,18 @@
 import pandas as pd
-from preprocessing.traditional import TraditionalPreprocessor
+from pathlib import Path
+from utils.sentiment import LabelSentiment 
 from utils.logger import logger
 
 class DataPreprocessor:
 
-    def __init__(self, text_preprocessor, file_handler, data_directory, data_filename):
+    def __init__(self, text_preprocessor, file_handler):
+        self.df = None
         self.text_preprocessor = text_preprocessor
         self.file_handler = file_handler
-        self.data_directory = data_directory
-        self.data_filename = data_filename
 
-    def loadFileIntoDF(self):
-        self.df = self.file_handler.load_csv(self.data_directory, self.data_filename)
-        logger.info("Loaded raw data to a data frame.")
+    def loadFileIntoDF(self, data_directory, data_filename):
+        self.df = self.file_handler.load_csv(data_directory, data_filename)
+        logger.info("Loaded CSV file data to a data frame.")
 
     def dropUnnecessaryColumns(self):
         self.df = self.df.drop(["Profile Link", "Country", "Date of Experience"], axis=1)
@@ -39,16 +39,8 @@ class DataPreprocessor:
         )
         logger.info("Extracted rating and updated 'Rating' column.")
 
-    def labelSentiment(self, rating):
-        if (rating <= 2):
-            return "Negative"
-        elif (rating == 3):
-            return "Neutral"
-        else:
-            return "Positive"
-
     def addSentimentColumn(self):
-        self.df["Sentiment"] = self.df["Rating"].apply(self.labelSentiment)
+        self.df["Sentiment"] = self.df["Rating"].apply(LabelSentiment)
         logger.info("Added 'Sentiment' column.")
 
     def cleanReviewText(self):
@@ -56,32 +48,37 @@ class DataPreprocessor:
         self.df["Review Text"] = self.df["Review Text"].astype(str).apply(
         self.text_preprocessor.cleanReview)
 
-        logger.info("Cleaned reviews using the traditioanl preprocessor.")
+        logger.info("Cleaned reviews.")
 
     def saveDFToFile(self, directory, filename):
         self.file_handler.save_df_to_csv(self.df, directory, filename)
         logger.info("Saved the processed data to a csv file.")
 
-    def processDataFrame(self, processed_data_dir = "", processed_data_filename = ""):
+    def processDataFrame(self, raw_data_directory, raw_data_filename, processed_data_dir, processed_data_filename):
 
-        logger.info("Started processing the raw data...")
+        file_path = Path(f"{processed_data_dir}/{processed_data_filename}.csv")
 
-        self.loadFileIntoDF()
-
-        self.dropUnnecessaryColumns()
-        self.updateDateFormat()
-        self.dropRowsMissingReviewText()
-        self.dropRowsMissingRating()
-        self.extractRating()
-        self.cleanReviewText()
-        self.addSentimentColumn()
+        if file_path.exists():
+            logger.info("Processed file already exists.")
+            self.loadFileIntoDF(processed_data_dir, processed_data_filename)
+        else:
         
-        if (self.df["Review Text"].isnull().sum() > 0):
-            self.dropRowsMissingReviewText()
+            logger.info("Started processing the raw data...")
 
-        if (len(processed_data_dir) > 0 and len(processed_data_filename) > 0):
+            self.loadFileIntoDF(raw_data_directory, raw_data_filename)
+            self.dropUnnecessaryColumns()
+            self.updateDateFormat()
+            self.dropRowsMissingReviewText()
+            self.dropRowsMissingRating()
+            self.extractRating()
+            self.cleanReviewText()
+            self.addSentimentColumn()
+            
+            if (self.df["Review Text"].isnull().sum() > 0):
+                self.dropRowsMissingReviewText()
+
             self.saveDFToFile(processed_data_dir, processed_data_filename)
 
-        logger.info("The raw data has been processed.")
-        
+            logger.info("The raw data has been processed.")
+
         return self.df

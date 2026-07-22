@@ -28,6 +28,8 @@ models_dir = config["MODELS"]["directory"]
 model_filename = config["MODELS"]["filename"]
 model_file_ext = config["MODELS"]["file_extension"]
 
+transformers_pretrained_model = config["TRANSFORMERS"]["pretrained_model"]
+
 metrics_dir = config["METRICS"]["directory"]
 imp_metrics_filename = config["METRICS"]["imp_metrics_filename"]
 c_matrix_filename = config["METRICS"]["c_matrix_filename"]

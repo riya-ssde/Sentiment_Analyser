@@ -1,10 +1,9 @@
 import joblib
-from preprocessing.traditional import TraditionalPreprocessor
 from utils.logger import logger
 
 class Predictor:
 
-    def __init__(self, vectorizerPath, modelPath, text_preprocessor):
+    def __init__(self, vectorizerPath, modelPath, text_preprocessor=None):
         self.text_preprocessor = text_preprocessor
         self.vectorizer = joblib.load(vectorizerPath)
         self.model = joblib.load(modelPath)

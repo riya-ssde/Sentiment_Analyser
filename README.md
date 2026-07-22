@@ -45,7 +45,7 @@ Sentiment_Analyser/
 |__ requirements.txt
 ```
 ## Datasets
-- Amazon Reviews (Kaggle)
+- Amazon Reviews (Kaggle - https://www.kaggle.com/datasets/dongrelaxman/amazon-reviews-dataset?resource=download)
 
 ## Features
 ### Baseline

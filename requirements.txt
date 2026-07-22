@@ -16,3 +16,6 @@ soupsieve==2.8.4
 threadpoolctl==3.6.0
 tqdm==4.68.3
 typing_extensions==4.15.0
+torch==2.13.0
+torchvision==0.28.0
+transformers==5.14.1

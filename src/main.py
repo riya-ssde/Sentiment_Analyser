@@ -1,6 +1,7 @@
 from utils.logger import logger
 from utils.configuration import *
-from traditional.process import Process_Traditional
+from traditional.process import TraditionalReviewProcessor
+from transformer.process import TransformerReviewProcessor
 
 def main():
 
@@ -13,16 +14,30 @@ def main():
         logger.info("Welcome to the Sentiment Analyser.")
 
         # Baseline
-        process_traditional = Process_Traditional()
-        process_traditional.trainModel()
 
-        predictions = process_traditional.predictTestDataSentiment()
-        process_traditional.evaluateTestDataPredictions(predictions)
+        traditional_processor = TraditionalReviewProcessor()
+        traditional_processor.trainModel()
+
+        predictions = traditional_processor.predictTestDataSentiment()
+        traditional_processor.evaluateTestDataPredictions(predictions)
 
         review = "neither liked it nor hated it"
+        sentiment = traditional_processor.predictReviewSentiment(review)
+
         logger.info(f"Review: {review}")
-        predicted_sentiment = process_traditional.predictReviewSentiment(review)
-        logger.info(f"Predicted Sentiment:{predicted_sentiment}")
+        logger.info(f"Predicted Sentiment: {sentiment}")
+
+        # Transformer
+
+        # transformer_processor = TransformerReviewProcessor(transformers_pretrained_model)
+
+        # review = "neither liked it nor hated it"
+        # sentiment = transformer_processor.calculateSentiment(review)
+
+        # logger.info(f"Review: {review}")
+        # logger.info(f"Predicted Sentiment: {sentiment}")
+
+        # transformer_processor.predictSentimentForAmazonReviews(raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename, X_col_name)
 
         logger.info("We have reached the end of the project!")
 

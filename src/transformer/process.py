@@ -6,21 +6,17 @@ from preprocessing.prepare_dataset import DataPreprocessor
 from evaluation.evaluate import Evaluator
 from utils.file_csv import FileHandler
 from utils.sentiment import LabelSentiment
+from utils.configuration import *
 from utils.logger import logger
 
 class TransformerReviewProcessor():
 
-    def __init__(self, raw_data_dir, raw_data_filename, processed_data_dir, clean_data_filename, pretrained_model_details):
+    def __init__(self):
 
         self.processed_df = None
 
-        self.raw_data_dir = raw_data_dir
-        self.raw_data_filename = raw_data_filename
-        self.processed_data_dir = processed_data_dir
-        self.clean_data_filename = clean_data_filename
-
-        self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_details)
-        self.model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_details)
+        self.tokenizer = AutoTokenizer.from_pretrained(transformers_pretrained_model)
+        self.model = AutoModelForSequenceClassification.from_pretrained(transformers_pretrained_model)
 
     def getProcessedDF(self):
         
@@ -33,7 +29,7 @@ class TransformerReviewProcessor():
         dataPreprocessor = DataPreprocessor(self.review_preprocessor, file_handler)
         logger.info("Created 'DataPreprocessor' object.")
         
-        self.processed_df = dataPreprocessor.processDataFrame(self.raw_data_dir, self.raw_data_filename, self.processed_data_dir, self.clean_data_filename)
+        self.processed_df = dataPreprocessor.processDataFrame(raw_data_dir, raw_data_filename, clean_data_dir, clean_data_filename)
 
     def calculateSentiment(self, review):
 
@@ -58,7 +54,7 @@ class TransformerReviewProcessor():
 
         return predicted_sentiments
 
-    def evaluatePredictionsForAmazonReviews(self, predictions, df_rows_range, metrics_dir, imp_metrics_filename, c_matrix_filename, c_report_filename):
+    def evaluatePredictionsForAmazonReviews(self, predictions, df_rows_range):
 
         actual_sentiments = self.processed_df["Sentiment"].iloc[df_rows_range["first_row"]:df_rows_range["last_row"]]
 

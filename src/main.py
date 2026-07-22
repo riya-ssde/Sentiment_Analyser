@@ -1,5 +1,4 @@
 from utils.logger import logger
-from utils.configuration import *
 from traditional.process import TraditionalReviewProcessor
 from transformer.process import TransformerReviewProcessor
 
@@ -29,7 +28,7 @@ def main():
 
         # Transformer
 
-        transformer_processor = TransformerReviewProcessor(raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename, transformers_pretrained_model)
+        transformer_processor = TransformerReviewProcessor()
 
         review = "neither liked it nor hated it"
         sentiment = transformer_processor.calculateSentiment(review)
@@ -43,7 +42,7 @@ def main():
         }
 
         predicted_sentiments = transformer_processor.predictSentimentForAmazonReviews(df_rows_range)
-        transformer_processor.evaluatePredictionsForAmazonReviews(predicted_sentiments, df_rows_range, metrics_dir, imp_metrics_filename, c_matrix_filename, c_report_filename)
+        transformer_processor.evaluatePredictionsForAmazonReviews(predicted_sentiments, df_rows_range)
 
         logger.info("We have reached the end of the project!")
 

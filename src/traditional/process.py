@@ -36,7 +36,7 @@ class TraditionalReviewProcessor():
         dataPreprocessor = DataPreprocessor(self.review_preprocessor, file_handler)
         logger.info("Created 'DataPreprocessor' object.")
         
-        self.processed_df = dataPreprocessor.processDataFrame(raw_data_dir, raw_data_filename, processed_data_dir, clean_data_filename)
+        self.processed_df = dataPreprocessor.processDataFrame(raw_data_dir, raw_data_filename, clean_data_dir, clean_data_filename)
 
     def getSplitData(self):
 

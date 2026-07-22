@@ -1,3 +1,5 @@
+import joblib
+from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from utils.file_csv import FileHandler
@@ -17,6 +19,7 @@ class TraditionalReviewProcessor():
 
         self.processed_df = None
         self.test_data = None
+        self.data_trainer = None
 
         text_preprocessor = TextPreprocessor()
         logger.info("Created 'TextPreprocessor' object.")
@@ -49,30 +52,25 @@ class TraditionalReviewProcessor():
 
         return split_data
 
-    def getTrainerObject(self):
+    def createTrainerObject(self):
 
         tfidf_vectorizer = TfidfVectorizer(max_features = tfidf_max_features)
         logger.info("Created 'TfidfVectorizer' object.")
         model_log_reg = LogisticRegression(max_iter = log_reg_max_iter)
         logger.info("Created 'LogisticRegression' object.")
 
-        trainer = Trainer(tfidf_vectorizer, model_log_reg, vectorizers_dir, models_dir, vectorizer_filename, model_filename,)
+        self.data_trainer = Trainer(tfidf_vectorizer, model_log_reg, vectorizers_dir, models_dir, vectorizer_filename, model_filename,)
         logger.info("Created 'Trainer' object.")
 
-        return trainer
+    def trainModel(self):
 
-    def fitModel(self):
-
-        if self.vectorizer_file_path.exists() and self.model_file_path.exists():
+        if Path(self.vectorizerPath).exists() and Path(self.modelPath).exists():
             logger.info("The model has already been trained.")
         else:
-             split_data = self.getSplitData()
-             trainer = self.getTrainerObject()
-             trainer.train(split_data["X_train"], split_data["y_train"])
-
-    def trainModel(self):
-        self.getProcessedDF()
-        self.fitModel()
+            self.getProcessedDF()
+            split_data = self.getSplitData()
+            self.createTrainerObject()
+            self.data_trainer.train(split_data["X_train"], split_data["y_train"])
 
     def populateTestData(self):
 
@@ -80,8 +78,12 @@ class TraditionalReviewProcessor():
             self.getProcessedDF()
 
         split_data = self.getSplitData()
-        trainer = self.getTrainerObject()
-        X_test_vectorized = trainer.getXTestVectorized(split_data["X_test"])
+
+        if self.data_trainer is None:
+            vectorizer = joblib.load(self.vectorizerPath)
+            X_test_vectorized = vectorizer.transform(split_data["X_test"])
+        else:
+            X_test_vectorized = self.data_trainer.getXTestVectorized(split_data["X_test"])
 
         self.test_data = {
             "X_vectorized": X_test_vectorized,

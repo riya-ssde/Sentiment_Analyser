@@ -29,15 +29,15 @@ def main():
 
         # Transformer
 
-        # transformer_processor = TransformerReviewProcessor(transformers_pretrained_model)
+        transformer_processor = TransformerReviewProcessor(transformers_pretrained_model)
 
-        # review = "neither liked it nor hated it"
-        # sentiment = transformer_processor.calculateSentiment(review)
+        review = "neither liked it nor hated it"
+        sentiment = transformer_processor.calculateSentiment(review)
 
-        # logger.info(f"Review: {review}")
-        # logger.info(f"Predicted Sentiment: {sentiment}")
+        logger.info(f"Review: {review}")
+        logger.info(f"Predicted Sentiment: {sentiment}")
 
-        # transformer_processor.predictSentimentForAmazonReviews(raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename, X_col_name)
+        transformer_processor.predictSentimentForAmazonReviews(raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename, X_col_name)
 
         logger.info("We have reached the end of the project!")
 

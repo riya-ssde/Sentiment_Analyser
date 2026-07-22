@@ -10,14 +10,14 @@ from utils.logger import logger
 
 class TransformerReviewProcessor():
 
-    def __init__(self, raw_data_dir, raw_data_filename, processed_data_dir, processed_data_filename, pretrained_model_details):
+    def __init__(self, raw_data_dir, raw_data_filename, processed_data_dir, clean_data_filename, pretrained_model_details):
 
         self.processed_df = None
 
         self.raw_data_dir = raw_data_dir
         self.raw_data_filename = raw_data_filename
         self.processed_data_dir = processed_data_dir
-        self.processed_data_filename = processed_data_filename
+        self.clean_data_filename = clean_data_filename
 
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_model_details)
         self.model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_details)
@@ -33,7 +33,7 @@ class TransformerReviewProcessor():
         dataPreprocessor = DataPreprocessor(self.review_preprocessor, file_handler)
         logger.info("Created 'DataPreprocessor' object.")
         
-        self.processed_df = dataPreprocessor.processDataFrame(self.raw_data_dir, self.raw_data_filename, self.processed_data_dir, self.processed_data_filename)
+        self.processed_df = dataPreprocessor.processDataFrame(self.raw_data_dir, self.raw_data_filename, self.processed_data_dir, self.clean_data_filename)
 
     def calculateSentiment(self, review):
 

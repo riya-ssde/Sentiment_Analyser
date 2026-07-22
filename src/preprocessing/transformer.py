@@ -1,6 +1,6 @@
 from preprocessing.clean_review import TextPreprocessor
 
-class TransformerPreprocessor:
+class TransformerReviewPreprocessor:
 
     def __init__(self, text_preprocessor):
         self.text_preprocessor = text_preprocessor

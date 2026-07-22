@@ -1,5 +1,4 @@
 import pandas as pd
-from preprocessing.traditional import TraditionalPreprocessor
 from utils.logger import logger
 
 class DataPreprocessor:
